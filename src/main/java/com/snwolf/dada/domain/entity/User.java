@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Builder
@@ -24,56 +25,56 @@ public class User {
     /**
      * 用户账号
      */
-    private String user_account;
+    private String userAccount;
 
     /**
      * 用户密码
      */
-    private String user_password;
+    private String userPassword;
 
     /**
      * 开放平台id
      */
-    private String union_id;
+    private String unionId;
 
     /**
      * 公众号openId
      */
-    private String mp_open_id;
+    private String mpOpenId;
 
     /**
      * 用户昵称
      */
-    private String user_name;
+    private String userName;
 
     /**
      * 用户头像
      */
-    private String user_avatar;
+    private String userAvatar;
 
     /**
      * 用户简介
      */
-    private String user_profile;
+    private String userProfile;
 
     /**
      * 用户角色：user/admin/ban
      */
-    private String user_role;
+    private String userRole;
 
     /**
      * 创建时间
      */
-    private LocalDateTime create_time;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    private LocalDateTime update_time;
+    private Date updateTime;
 
     /**
      * 是否删除
      */
     @TableLogic
-    private Integer is_delete;
+    private Integer isDelete;
 }

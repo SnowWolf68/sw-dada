@@ -24,3 +24,5 @@ spring:
 logging:
   level:
     com.snwolf: debug
+mybatis-plus:
+  type-aliases-package: com.snwolf.dada.domain.entity # 别名扫描包

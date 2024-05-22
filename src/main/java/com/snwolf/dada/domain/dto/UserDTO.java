@@ -18,45 +18,45 @@ public class UserDTO {
     /**
      * 账号
      */
-    private String user_account;
+    private String userAccount;
 
     /**
      * 密码
      */
-    private String user_password;
+    private String userPassword;
 
     /**
      * 用户昵称
      */
-    private String user_name;
+    private String userName;
 
     /**
      * 用户头像
      */
-    private String user_avatar;
+    private String userAvatar;
 
     /**
      * 用户角色：user/admin
      */
-    private String user_role;
+    private String userRole;
 
     /**
      * 开放平台id
      */
-    private String union_id;
+    private String unionId;
 
     /**
      * 公众号openId
      */
-    private String mp_open_id;
+    private String opOpenId;
 
     /**
      * 用户简介
      */
-    private String user_profile;
+    private String userProfile;
 
     /**
      * 是否删除
      */
-    private Integer is_delete;
+    private Integer isDelete;
 }

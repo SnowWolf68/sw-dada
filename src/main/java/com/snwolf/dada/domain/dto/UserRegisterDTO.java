@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRegisterDTO {
-    private String user_account;
+    private String userAccount;
 
-    private String user_password;
+    private String userPassword;
 
     private String checkPassword;
 }

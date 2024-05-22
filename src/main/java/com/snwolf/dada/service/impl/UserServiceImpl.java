@@ -30,14 +30,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void register(UserRegisterDTO userRegisterDTO) throws CheckPasswordException {
-        String user_password = userRegisterDTO.getuser_password();
+        String userPassword = userRegisterDTO.getUserPassword();
         String checkPassword = userRegisterDTO.getCheckPassword();
-        String user_account = userRegisterDTO.getuser_account();
-        if(!checkPassword.equals(user_password)){
+        String userAccount = userRegisterDTO.getUserAccount();
+        if(!checkPassword.equals(userPassword)){
             throw new CheckPasswordException("两次密码输入不一致");
         }
         User oldUser = lambdaQuery()
-                .eq(User::getuser_account, user_account)
+                .eq(User::getUserAccount, userAccount)
                 .one();
         if(oldUser != null){
             throw new AccountAlreadyExistException("账号已存在");
@@ -48,11 +48,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public String login(UserLoginDTO userLoginDTO) {
-        String user_account = userLoginDTO.getuser_account();
-        String user_password = userLoginDTO.getuser_password();
+        String userAccount = userLoginDTO.getUserAccount();
+        String userPassword = userLoginDTO.getUserPassword();
         User user = lambdaQuery()
-                .eq(User::getuser_account, user_account)
-                .eq(User::getuser_password, user_password)
+                .eq(User::getUserAccount, userAccount)
+                .eq(User::getUserPassword, userPassword)
                 .one();
         if(user == null){
             throw new AccountOrPasswordException("账号或密码错误");

@@ -42,17 +42,17 @@ public class RoleCheckAspect {
             return joinPoint.proceed();
         }
         UserDTO userDTO = UserHolder.getUser();
-        Long user_id = userDTO.getId();
-        String user_role = userDTO.getuser_role();
+        Long userId = userDTO.getId();
+        String userRole = userDTO.getUserRole();
         boolean isMatch = false;
         for (String role : roleList) {
-            if(role.equals(user_role)){
+            if(role.equals(userRole)){
                 isMatch = true;
                 break;
             }
         }
         if(!isMatch){
-            log.info("用户: {} 无权限访问", user_id);
+            log.info("用户: {} 无权限访问", userId);
             return Result.error("用户无权限访问");
         }else {
             return joinPoint.proceed();
