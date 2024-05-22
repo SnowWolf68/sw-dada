@@ -29,7 +29,8 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addPathPatterns(
                         "/user/**",
                         "/app/**",
-                        "/question/**"
+                        "/question/**",
+                        "/scoreResult/**"
                 )
                 .excludePathPatterns(
                         "/user/login",

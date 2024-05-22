@@ -1,0 +1,11 @@
+
+
+java:S1192)"KDefine a constant instead of duplicating this literal "resultProp" 5 times.(èÉ½ó8íØß‡ú1J$f8584b38-5d0a-4f4b-8dc0-e0a8359d251b
+„
+java:S49739"<Strings and Boxed types should be compared using "equals()".(şöèûÿÿÿÿ8ñØß‡ú1J$6635cf43-cd55-4157-80b8-75232f411893
+„
+java:S4973u"<Strings and Boxed types should be compared using "equals()".(¥ÚŠúÿÿÿÿ8òØß‡ú1J$c18e94ac-8fbd-475f-9cc0-de74133d7431
+
+java:S3252B"MUse static access with "cn.hutool.core.collection.CollUtil" for "isNotEmpty".(Æ™ËÔ8¾Ùß‡ú1J$b650a30b-80cc-4154-bad0-8e5d54e1674e
+•
+java:S3252y"MUse static access with "cn.hutool.core.collection.CollUtil" for "isNotEmpty".(ĞÒë–üÿÿÿÿ8ÌÙß‡ú1J$efb91c30-6433-4f28-92b1-97a780415171
