@@ -1,10 +1,7 @@
 package com.snwolf.dada.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.snwolf.dada.domain.dto.IdDTO;
-import com.snwolf.dada.domain.dto.QuestionAddDTO;
-import com.snwolf.dada.domain.dto.QuestionQueryDTO;
-import com.snwolf.dada.domain.dto.QuestionUpdateDTO;
+import com.snwolf.dada.domain.dto.*;
 import com.snwolf.dada.domain.vo.QuestionVO;
 import com.snwolf.dada.result.Result;
 import com.snwolf.dada.service.IQuestionService;
@@ -15,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/question")
@@ -59,4 +58,11 @@ public class QuestionController {
         Page<QuestionVO> pageResult = questionService.pageQuery(questionQueryDTO);
         return Result.success(pageResult);
     }
+
+    @PostMapping("/generate")
+    public Result<List<QuestionContentDTO>> aiGenerateQuestion(@RequestBody AiGenerateQuestionDTO aiGenerateQuestionDTO){
+        List<QuestionContentDTO> questionList = questionService.aiGenerateQuestion(aiGenerateQuestionDTO);
+        return Result.success(questionList);
+    }
+
 }

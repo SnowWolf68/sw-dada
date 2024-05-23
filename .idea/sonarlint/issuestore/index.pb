@@ -198,3 +198,17 @@ v
 Fsrc/main/java/com/snwolf/dada/domain/entity/ZhipuAPIKeyProperties.java,e\1\e1ee76a58638c5b9680df88039615fe2b07df4d8
 p
 @src/main/java/com/snwolf/dada/domain/entity/ZhipuProperties.java,5\6\560957eff463600e355c1fbb3c858bb8a7eaa7d8
+e
+5src/main/java/com/snwolf/dada/aiService/AiConfig.java,7\4\74199fd09258e7131dcd630549ebaa2f34fc4668
+m
+=src/main/java/com/snwolf/dada/properties/ZhipuProperties.java,a\a\aa19d6f7dc75e8fcb3c17f5fade5bd85cc3ce594
+o
+?src/main/java/com/snwolf/dada/aiService/ZhipuAiServiceImpl.java,d\3\d3f2ed352eb66bfc44e1f0b8568411cd33457a76
+p
+@src/main/java/com/snwolf/dada/exception/AiInvokingException.java,8\6\863e3a3b981d0f65e675d0c182b1135a798516fe
+s
+Csrc/main/java/com/snwolf/dada/domain/dto/AiGenerateQuestionDTO.java,d\4\d464e19b629e8d5c8fd066e43627476b15d094dc
+z
+Jsrc/main/java/com/snwolf/dada/aiService/properties/AiPromptProperties.java,f\d\fdc170f0d62446f1a50adec0d5db3d384b4325ed
+y
+Isrc/main/java/com/snwolf/dada/aiService/properties/AiPromptConstants.java,e\3\e322d1ec7f590788736029ac918b4e7fc2875ca3

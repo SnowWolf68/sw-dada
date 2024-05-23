@@ -1,8 +1,5 @@
 package com.snwolf.dada;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snwolf.dada.domain.entity.ZhipuProperties;
 import com.zhipu.oapi.ClientV4;
 import com.zhipu.oapi.Constants;
 import com.zhipu.oapi.service.v4.model.ChatCompletionRequest;
@@ -13,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +19,7 @@ import java.util.List;
 public class ZhipuAiTest {
 
     @Resource
-    private ZhipuProperties zhipuProperties;
-
     private ClientV4 clientV4;
-
-    @PostConstruct
-    void initClientV4(){
-        clientV4 = new ClientV4.Builder(zhipuProperties.getApiKey()).build();
-    }
-
-    @Test
-    void testInjection(){
-        log.info("apiKey:{}", zhipuProperties.getApiKey());
-    }
 
     @Test
     void testAi(){
@@ -53,11 +37,7 @@ public class ZhipuAiTest {
                 .requestId(requestId)
                 .build();
         ModelApiResponse invokeModelApiResp = clientV4.invokeModelApi(chatCompletionRequest);
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            System.out.println("model output:" + mapper.writeValueAsString(invokeModelApiResp));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        String msg = invokeModelApiResp.getData().getChoices().get(0).toString();
+        System.out.println(msg);
     }
 }

@@ -5,14 +5,19 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.snwolf.dada.aiService.ZhipuAiServiceImpl;
+import com.snwolf.dada.aiService.properties.AiPromptConstants;
 import com.snwolf.dada.domain.dto.*;
+import com.snwolf.dada.domain.entity.App;
 import com.snwolf.dada.domain.entity.Question;
 import com.snwolf.dada.domain.entity.User;
 import com.snwolf.dada.domain.vo.QuestionVO;
 import com.snwolf.dada.domain.vo.UserVO;
+import com.snwolf.dada.exception.AppNotExistException;
 import com.snwolf.dada.exception.QuestionNotAllowedUpdateException;
 import com.snwolf.dada.exception.QuestionNotExistException;
 import com.snwolf.dada.mapper.QuestionMapper;
+import com.snwolf.dada.service.IAppService;
 import com.snwolf.dada.service.IQuestionService;
 import com.snwolf.dada.service.IUserService;
 import com.snwolf.dada.utils.SqlUtils;
@@ -30,6 +35,10 @@ import java.util.stream.Collectors;
 public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> implements IQuestionService {
 
     private final IUserService userService;
+
+    private final IAppService appService;
+
+    private final ZhipuAiServiceImpl zhipuAiService;
 
     @Override
     public void add(QuestionAddDTO questionAddDTO) {
@@ -133,5 +142,49 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
                 sortOrder.equals("ascend"),
                 sortField);
         return queryWrapper;
+    }
+
+
+    @Override
+    public List<QuestionContentDTO> aiGenerateQuestion(AiGenerateQuestionDTO aiGenerateQuestionDTO) {
+        Long appId = aiGenerateQuestionDTO.getAppId();
+        int questionNumber = aiGenerateQuestionDTO.getQuestionNumber();
+        int optionNumber = aiGenerateQuestionDTO.getOptionNumber();
+        App app = appService.getById(appId);
+        if(app == null){
+            throw new AppNotExistException("应用不存在");
+        }
+        String userMessage = getGenerateQuestionUserMessage(app, questionNumber, optionNumber);
+        String aiRespJson = zhipuAiService.doRequestSyncUnStable(AiPromptConstants.SYSTEM_PROMPT, userMessage);
+        // 截取需要的 JSON 信息
+        int start = aiRespJson.indexOf("[");
+        int end = aiRespJson.lastIndexOf("]");
+        String json = aiRespJson.substring(start, end + 1);
+        return JSONUtil.toList(json, QuestionContentDTO.class);
+    }
+
+    private String getGenerateQuestionUserMessage(App app, int questionNumber, int optionNumber) {
+        StringBuilder userMessage = new StringBuilder();
+        userMessage.append(app.getAppName()).append("\n");
+        userMessage.append(app.getAppDesc()).append("\n");
+        userMessage.append(getAppType(app.getAppType()) + "类").append("\n");
+        userMessage.append(questionNumber).append("\n");
+        userMessage.append(optionNumber);
+        return userMessage.toString();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    private String getAppType(int appType){
+        return appType == 0 ? "得分" : "测评";
     }
 }
