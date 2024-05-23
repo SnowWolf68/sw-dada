@@ -155,7 +155,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
             throw new AppNotExistException("应用不存在");
         }
         String userMessage = getGenerateQuestionUserMessage(app, questionNumber, optionNumber);
-        String aiRespJson = zhipuAiService.doRequestSyncUnStable(AiPromptConstants.SYSTEM_PROMPT, userMessage);
+        String aiRespJson = zhipuAiService.doRequestSyncUnStable(AiPromptConstants.GENERATE_QUESTION_SYSTEM_PROMPT, userMessage);
         // 截取需要的 JSON 信息
         int start = aiRespJson.indexOf("[");
         int end = aiRespJson.lastIndexOf("]");

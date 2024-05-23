@@ -212,3 +212,7 @@ z
 Jsrc/main/java/com/snwolf/dada/aiService/properties/AiPromptProperties.java,f\d\fdc170f0d62446f1a50adec0d5db3d384b4325ed
 y
 Isrc/main/java/com/snwolf/dada/aiService/properties/AiPromptConstants.java,e\3\e322d1ec7f590788736029ac918b4e7fc2875ca3
+o
+?src/main/java/com/snwolf/dada/domain/dto/QuestionAnswerDTO.java,8\e\8ec6e283b2d0b54730555fbffeee0a13446ddc85
+y
+Isrc/main/java/com/snwolf/dada/scoring/impl/AiTestScoringStrategyImpl.java,3\e\3edd5dfb0da0028393971f35bdc6918a4f54836b

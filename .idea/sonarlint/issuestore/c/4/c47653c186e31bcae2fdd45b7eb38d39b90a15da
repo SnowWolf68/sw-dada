@@ -1,5 +1,7 @@
 
 
-java:S1192T"GDefine a constant instead of duplicating this literal "choice" 3 times.(Õˆúêúÿÿÿÿ8ÇÔŒ£ú1J$207e3e14-55d8-481f-9fe4-ebddab83316b
+java:S1192T"GDefine a constant instead of duplicating this literal "choice" 3 times.(Õˆúêúÿÿÿÿ8ÇÔŒ£ú1J$18a13243-b10f-4781-8dfe-6287238a94cc
 ‘
-java:S3252‘"MUse static access with "cn.hutool.core.collection.CollUtil" for "isNotEmpty".(³˜ŞÎ8åÔŒ£ú1J$7e4787ab-39f5-425d-8ce9-815e78868e1d
+java:S3252‘"MUse static access with "cn.hutool.core.collection.CollUtil" for "isNotEmpty".(³˜ŞÎ8åÔŒ£ú1J$da909221-ff3d-4c00-bdb9-83689c8d643c
+U
+java:S1128"8Remove this unused import 'java.util.function.Function'.(»³Í8ÄåÄ­ú1
