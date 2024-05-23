@@ -1,5 +1,6 @@
 ### Custom ###
 .idea/
+src/main/resources/application-local.yml
 
 target/
 !.mvn/wrapper/maven-wrapper.jar

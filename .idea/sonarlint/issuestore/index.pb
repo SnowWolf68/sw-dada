@@ -192,3 +192,9 @@ Esrc/main/java/com/snwolf/dada/scoring/annotation/ScoringStrategy.java,2\5\256f
 Ksrc/main/java/com/snwolf/dada/scoring/executor/ScoringStrategyExecutor.java,a\d\ad5204a60d7288175baf4763c0bd94da997f2d99
 y
 Isrc/main/java/com/snwolf/dada/scoring/annotation/ScoringStrategyAnno.java,d\e\deb8ee0e073fff3c650f501d0eead89332fda729
+^
+.src/test/java/com/snwolf/dada/ZhipuAiTest.java,e\f\ef972770af54855e3e4b6f0c1e4f06b78b57c61f
+v
+Fsrc/main/java/com/snwolf/dada/domain/entity/ZhipuAPIKeyProperties.java,e\1\e1ee76a58638c5b9680df88039615fe2b07df4d8
+p
+@src/main/java/com/snwolf/dada/domain/entity/ZhipuProperties.java,5\6\560957eff463600e355c1fbb3c858bb8a7eaa7d8

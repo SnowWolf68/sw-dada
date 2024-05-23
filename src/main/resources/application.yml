@@ -21,6 +21,8 @@ spring:
     database: 2
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
+  profiles:
+    active: local
 logging:
   level:
     com.snwolf: debug
