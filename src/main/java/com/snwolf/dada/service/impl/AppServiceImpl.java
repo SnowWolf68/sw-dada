@@ -62,6 +62,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements IAppS
     public Page<App> pageQuery(AppQueryDTO appQueryDTO) {
         Page<App> page = new Page<>(appQueryDTO.getCurrent(), appQueryDTO.getPageSize());
 
+        appQueryDTO.setReviewStatus(1);
         QueryWrapper<App> appQueryWrapper = getQueryWrapper(appQueryDTO);
         return page(page, appQueryWrapper);
     }
