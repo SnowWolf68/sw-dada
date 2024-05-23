@@ -10,7 +10,7 @@ import com.snwolf.dada.domain.entity.UserAnswer;
 import com.snwolf.dada.domain.vo.UserAnswerVO;
 
 public interface IUserAnswerService extends IService<UserAnswer> {
-    void add(UserAnswerAddDTO userAnswerAddDTO);
+    void add(UserAnswerAddDTO userAnswerAddDTO) throws Exception;
 
     void delete(Long id);
 

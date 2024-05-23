@@ -22,7 +22,7 @@ public class UserAnswerController {
     private final IUserAnswerService userAnswerService;
 
     @PostMapping("/add")
-    public Result add(@RequestBody UserAnswerAddDTO userAnswerAddDTO){
+    public Result add(@RequestBody UserAnswerAddDTO userAnswerAddDTO) throws Exception {
         userAnswerService.add(userAnswerAddDTO);
         return Result.success();
     }

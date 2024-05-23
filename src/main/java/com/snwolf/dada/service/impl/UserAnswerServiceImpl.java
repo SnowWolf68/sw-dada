@@ -14,6 +14,7 @@ import com.snwolf.dada.domain.vo.UserAnswerVO;
 import com.snwolf.dada.domain.vo.UserVO;
 import com.snwolf.dada.exception.*;
 import com.snwolf.dada.mapper.UserAnswerMapper;
+import com.snwolf.dada.scoring.executor.ScoringStrategyExecutor;
 import com.snwolf.dada.service.IAppService;
 import com.snwolf.dada.service.IUserAnswerService;
 import com.snwolf.dada.service.IUserService;
@@ -36,8 +37,10 @@ public class UserAnswerServiceImpl extends ServiceImpl<UserAnswerMapper, UserAns
 
     private final IUserService userService;
 
+    private final ScoringStrategyExecutor scoringStrategyExecutor;
+
     @Override
-    public void add(UserAnswerAddDTO userAnswerAddDTO) {
+    public void add(UserAnswerAddDTO userAnswerAddDTO) throws Exception {
         Long appId = userAnswerAddDTO.getAppId();
         App app = appService.getById(appId);
         if(app == null){
@@ -52,6 +55,11 @@ public class UserAnswerServiceImpl extends ServiceImpl<UserAnswerMapper, UserAns
         Long userId = UserHolder.getUser().getId();
         userAnswer.setUserId(userId);
         save(userAnswer);
+        Long userAnswerId = userAnswer.getId();
+
+        UserAnswer userAnswerWithResult = scoringStrategyExecutor.doScore(userAnswerAddDTO.getChoices(), app);
+        userAnswerWithResult.setId(userAnswerId);
+        updateById(userAnswerWithResult);
     }
 
     @Override
