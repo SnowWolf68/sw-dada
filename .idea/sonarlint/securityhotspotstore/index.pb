@@ -208,3 +208,7 @@ _
 /src/test/java/com/snwolf/dada/FlowableTest.java,7\7\77e0e6427c874e2985c5b9e18bceaacadd26bc9b
 _
 /src/test/java/com/snwolf/dada/JSONUtilTest.java,c\9\c94fa7a901f720bf3a71d493ab1b225c9b985ceb
+_
+/src/test/java/com/snwolf/dada/CaffeineTest.java,9\9\9951623c1356fc0282da0c5e2159b5800720aa7d
+h
+8src/main/java/com/snwolf/dada/config/RedissonConfig.java,f\a\faafebc2051ba8469f15e991aa5d81dcd1a9eba4
