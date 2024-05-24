@@ -1,7 +1,7 @@
 
 ˆ
 java:S1192"EDefine a constant instead of duplicating this literal "```
-" 8 times.(‹š“þ8Ë¹…­ú1J$7787e36f-e79d-4f7d-b19d-a49dc975e62f
-œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¥Žç‹8Ì¹…­ú1J$dc410589-f282-4581-8fe5-8899dd6a18ac
+" 8 times.(‹š“þ8Ë¹…­ú1J$7eef84e0-9fec-4c96-9d43-833572387cb6
+œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¥Žç‹8Ì¹…­ú1J$6a9c6433-bf2b-4302-bfdf-bd8b699d9270
 ‚
-java:S1118":Add a private constructor to hide the implicit public one.(‡‚’Àùÿÿÿÿ8Í¹…­ú1J$aaf30ad2-62a2-4790-99c0-6c85afc436fe
+java:S1118":Add a private constructor to hide the implicit public one.(‡‚’Àùÿÿÿÿ8Í¹…­ú1J$2374c852-4004-490f-85f9-9709fb589dc5

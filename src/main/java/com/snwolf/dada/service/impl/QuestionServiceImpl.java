@@ -1,6 +1,7 @@
 package com.snwolf.dada.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,16 +23,27 @@ import com.snwolf.dada.service.IQuestionService;
 import com.snwolf.dada.service.IUserService;
 import com.snwolf.dada.utils.SqlUtils;
 import com.snwolf.dada.utils.UserHolder;
+import com.zhipu.oapi.service.v4.model.ModelData;
+import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> implements IQuestionService {
 
     private final IUserService userService;
@@ -161,6 +173,53 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         int end = aiRespJson.lastIndexOf("]");
         String json = aiRespJson.substring(start, end + 1);
         return JSONUtil.toList(json, QuestionContentDTO.class);
+    }
+
+    @Override
+    public SseEmitter aiGenerateQuestionWithSSE(AiGenerateQuestionDTO aiGenerateQuestionDTO) {
+        Long appId = aiGenerateQuestionDTO.getAppId();
+        int questionNumber = aiGenerateQuestionDTO.getQuestionNumber();
+        int optionNumber = aiGenerateQuestionDTO.getOptionNumber();
+        App app = appService.getById(appId);
+        if(app == null){
+            throw new AppNotExistException("应用不存在");
+        }
+        String userMessage = getGenerateQuestionUserMessage(app, questionNumber, optionNumber);
+        // 建立SSE连接对象
+        SseEmitter sseEmitter = new SseEmitter(0L);
+        // todo: 可以把temperature再封装一下
+        Flowable<ModelData> flowable = zhipuAiService.doStreamRequest(AiPromptConstants.GENERATE_QUESTION_SYSTEM_PROMPT, userMessage, 0.8f);
+        AtomicInteger count = new AtomicInteger(0);
+        StringBuilder sb = new StringBuilder();
+        flowable.map(modelData -> modelData.getChoices().get(0).getDelta().getContent())
+                .map(str -> str.replaceAll("\\s", ""))
+                .filter(StrUtil::isNotBlank)
+                .flatMap(str -> Flowable.fromIterable(
+                        str.chars()
+                                .mapToObj(c -> (char) c)
+                                .collect(Collectors.toList())
+                ))
+                .doOnNext(c -> {
+                    if(c == '{'){
+                        count.incrementAndGet();
+                    }
+                    if(count.get() > 0){
+                        sb.append(c);
+                    }
+                    if(c == '}'){
+                        count.decrementAndGet();
+                        if(count.get() == 0){
+                            String jsonStr = sb.toString();
+                            log.info("jsonStr:{}", jsonStr);
+                            sseEmitter.send(jsonStr);
+                            sb.setLength(0);
+                        }
+                    }
+                })
+                .doOnError(e -> log.error("AI请求失败, e:{}", e))
+                .doOnComplete(() -> sseEmitter.complete())
+                .subscribe();
+        return sseEmitter;
     }
 
     private String getGenerateQuestionUserMessage(App app, int questionNumber, int optionNumber) {

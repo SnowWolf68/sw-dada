@@ -3,10 +3,8 @@ package com.snwolf.dada.aiService;
 import com.snwolf.dada.exception.AiInvokingException;
 import com.zhipu.oapi.ClientV4;
 import com.zhipu.oapi.Constants;
-import com.zhipu.oapi.service.v4.model.ChatCompletionRequest;
-import com.zhipu.oapi.service.v4.model.ChatMessage;
-import com.zhipu.oapi.service.v4.model.ChatMessageRole;
-import com.zhipu.oapi.service.v4.model.ModelApiResponse;
+import com.zhipu.oapi.service.v4.model.*;
+import io.reactivex.Flowable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -108,6 +106,45 @@ public class ZhipuAiServiceImpl {
     public String doRequestSyncWithDefaultTemperature(String systemMessage, String userMessage) {
         List<ChatMessage> chatMessageList = getMessageListWithSingleUserAndSystemMessage(systemMessage, userMessage);
         return doRequest(chatMessageList, Boolean.FALSE, DEFAULT_TEMPERATURE);
+    }
+
+
+    /**
+     * 通用流式请求
+     *
+     * @param messages
+     * @param temperature
+     * @return
+     */
+    public Flowable<ModelData> doStreamRequest(List<ChatMessage> messages, Float temperature) {
+        ChatCompletionRequest chatCompletionRequest = ChatCompletionRequest.builder()
+                .model(Constants.ModelChatGLM4)
+                .stream(Boolean.FALSE)
+                .invokeMethod(Constants.invokeMethod)
+                .messages(messages)
+                .temperature(temperature)
+                .stream(true)
+                .build();
+        ModelApiResponse invokeModelApiResp = null;
+        try {
+            invokeModelApiResp = clientV4.invokeModelApi(chatCompletionRequest);
+        } catch (Exception e) {
+            throw new AiInvokingException("调用AI接口异常, 异常信息: " + e.getMessage());
+        }
+        return invokeModelApiResp.getFlowable();
+    }
+
+    /**
+     * 通用流式请求 -- 简化消息传递
+     *
+     * @param systemMessage
+     * @param userMessage
+     * @param temperature
+     * @return
+     */
+    public Flowable<ModelData> doStreamRequest(String systemMessage, String userMessage, Float temperature) {
+        List<ChatMessage> chatMessageList = getMessageListWithSingleUserAndSystemMessage(systemMessage, userMessage);
+        return doStreamRequest(chatMessageList, temperature);
     }
 
     private List<ChatMessage> getMessageListWithSingleUserAndSystemMessage(String systemMessage, String userMessage){

@@ -1,0 +1,7 @@
+
+	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ØÂ•Òú1J$4ab069cf-033c-4891-a3e5-21ecda488c02
+	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ØÂ•Òú1J$2fb8fdfa-2340-4033-bce5-20c06e1f5540
+‡
+java:S2147"DCombine this catch with the one at line 28, which has the same body.(ä ¹€8àÂ•Òú1J$e64bb6bf-d2dd-41a0-aa99-9a27e65804d2
+¡
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8àÂ•Òú1J$6e7fac0c-d122-469e-b44b-45928f5e8a8b

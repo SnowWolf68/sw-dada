@@ -8,10 +8,8 @@ import com.snwolf.dada.service.IQuestionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
 
@@ -63,6 +61,11 @@ public class QuestionController {
     public Result<List<QuestionContentDTO>> aiGenerateQuestion(@RequestBody AiGenerateQuestionDTO aiGenerateQuestionDTO){
         List<QuestionContentDTO> questionList = questionService.aiGenerateQuestion(aiGenerateQuestionDTO);
         return Result.success(questionList);
+    }
+
+    @GetMapping("/ai_generate/sse")
+    public SseEmitter aiGenerateQuestionWithSSE(AiGenerateQuestionDTO aiGenerateQuestionDTO){
+        return questionService.aiGenerateQuestionWithSSE(aiGenerateQuestionDTO);
     }
 
 }
